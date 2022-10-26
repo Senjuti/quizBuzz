@@ -1,9 +1,5 @@
 body {
-  background: url(../assets/images/bg.jpg) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+  background-color: #F5F5F5FF !important;
   padding: 50px;
 }
 
@@ -13,7 +9,7 @@ a:hover {
 }
 
 .site-title {
-  font-family: 'Oswald', sans-serif;
+  font-family: 'GTWalsheim-Bold', sans-serif;
   font-size: 48px;
   line-height: 1;
   margin: 0 0 16px;
@@ -28,14 +24,6 @@ a:hover {
   text-decoration: none;
 }
 
-.site-title-dark a {
-  background-color: #333;
-  color: #fff;
-  display: inline-block;
-  padding: 16px;
-  text-decoration: none;
-}
-
 .question-container {
   background-color: #fff;
   padding: 20px;
@@ -43,13 +31,12 @@ a:hover {
 
 .question-title {
   background: url(../assets/images/lines.png) bottom repeat-x;
-  font-family: 'Oswald', sans-serif;
+  font-family: 'GTWalsheim', sans-serif;
   font-size: 32px;
   line-height: 1;
   margin: 24px 0;
   padding: 24px 0;
   text-align: center;
-  text-transform: capitalize;
 }
 
 .thumbnail:hover {
@@ -104,16 +91,6 @@ a:hover {
 .fade-leave-active {
   right: -100px;
   transition: .5s ease-in all;
-}
-
-.thumbnail {
-    height: 245px;
-}
-
-.question-img {
-    float: left;
-    width: 300px;
-    object-fit: scale-down;
 }
 
 .iconbox {

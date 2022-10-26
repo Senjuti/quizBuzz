@@ -8,11 +8,8 @@ export default class App extends Component {
     return (
       <div className="app-container">
         <h1 className="site-title">
-          <a href="/">quizBuzz Presents</a>
+          <a href="/">Trouve ta personnalité Fillactive</a>
         </h1>
-        <h2 className="site-title-dark">
-          <a href="/">Which 90s Hip-Hop Artist Is Your Spirit Animal?</a>
-        </h2>
         <Questions />
         <Result />
       </div>
