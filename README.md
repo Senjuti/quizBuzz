@@ -1,4 +1,4 @@
-# quizBuzz - Buzzfeed Quiz + React + Redux
+# Fillactive quiz (with React + Redux)
 
 ## Live Demo
 
