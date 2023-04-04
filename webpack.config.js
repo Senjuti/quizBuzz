@@ -8,12 +8,9 @@ module.exports = {
     filename: 'bundle.js'
   },
   module: {
-    loaders: [{
+    rules: [{
       exclude: /node_modules/,
-      loader: 'babel',
-      query: {
-        presets: ['react', 'es2015', 'stage-1']
-      }
+      loader: 'babel-loader'
     }]
   },
   resolve: {
@@ -21,6 +18,7 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    contentBase: './'
+    static: './',
+    port: 8080
   }
 };
