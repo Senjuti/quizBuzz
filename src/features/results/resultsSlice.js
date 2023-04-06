@@ -50,7 +50,8 @@ const initialState = {
           lowerRange: 151,
           upperRange: 170
         }
-      ].sort((a,b) => a.id - b.id)
+      ].sort((a,b) => a.id - b.id),
+      result: {}
   }
   
   const resultsSlice = createSlice({
@@ -60,9 +61,7 @@ const initialState = {
         getResult: (state, action) => {
         const total = action.payload
 
-        const result = state.results.find(result => result.lowerRange <= total && result.upperRange >= total)
-
-        return result
+        state.result = state.results.find(result => result.lowerRange <= total && result.upperRange >= total)
       }
     }
   })

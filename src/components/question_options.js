@@ -53,7 +53,7 @@ function renderOptions(props,selectedOption, setSelectedOption) {
 
   const dispatch = useDispatch()
 
-  console.log('state in questions_options: ', useSelector((state) => state.questionsSlice))
+  // console.log('state in questions_options: ', useSelector((state) => state.questionsSlice))
 
   // useDispatch(questionClicked(selectedOption))
 
@@ -62,11 +62,14 @@ function renderOptions(props,selectedOption, setSelectedOption) {
   return options.map(({ id: optionId, img, points }) => {
     // console.log('optionId: ', optionId, ' img: ', img, ' points: ', points)
 
-    console.log('selected option: ', selectedOption, '\n compare against: ', {questionId:questionId, optionId:optionId}, '\n is it the same? ',
-     selectedOption.questionId == questionId && selectedOption.optionId == optionId)
+    // console.log('selected option: ', selectedOption, '\n compare against: ', {questionId:questionId, optionId:optionId}, '\n is it the same? ',
+    //  selectedOption.questionId == questionId && selectedOption.optionId == optionId)
     return (
       <div key={img} className="col-md-5">
-        <div onClick={() => dispatch(questionClicked())} className={(selectedOption.questionId == questionId && selectedOption.optionId == optionId) ? 'thumbnail chosen' : 'thumbnail'}>
+        <div onClick={() => {
+            setSelectedOption({questionId: questionId, optionId: optionId})
+            dispatch(questionClicked({questionId: questionId, optionId: optionId}))
+        } } className={(selectedOption.questionId == questionId && selectedOption.optionId == optionId) ? 'thumbnail chosen' : 'thumbnail'}>
           <img id="option-img" src={`${root}${img}`} />
           <div>Option id: {optionId}, Points value: {points}</div>
           <i className={(selectedOption.questionId == questionId && selectedOption.optionId == optionId) ? 'fa fa-check-square-o fa-lg iconbox' : 'fa fa-square-o fa-lg iconbox'}></i>

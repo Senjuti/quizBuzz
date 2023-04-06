@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import { useSelector, useDispatch } from 'react-redux';
 import { getResult } from '../features/results/resultsSlice';
-import { resetQuiz } from '../features/questions/questionsSlice';
+import { resetQuiz, isQuizFinished } from '../features/questions/questionsSlice';
 
 
 import * as actions from '../actions';
@@ -38,22 +38,30 @@ function Result (props) {
   //   this.props.sendEmail(email, rapper, description);
   // }
 
-  
+  const dispatch = useDispatch()
+  // dispatch(questionClicked({questionId: questionId, optionId: optionId}))
 
-  const { isQuizFinished, pointsTotal } = useSelector(getResult).payload
+  const isQuizFinished = useSelector((state) => state.questionsSlice.isQuizFinished)
+
+  const pointsTotal = useSelector((state) => state.questionsSlice.pointsTotal)
+
+  const result = useSelector((state) => state.questionsSlice.result)
+
+  // const { isQuizFinished, pointsTotal } = dispatch(isQuizFinished)
+
+  // dispatch(isQuizFinished)
     
   // if (isQuizFinished && this.props.displayModal) {
 
-  console.log('Is the quiz finished? ', isQuizFinished, 'pointsTotal: ', pointsTotal)
+  console.log('Is the quiz finished? ', isQuizFinished, 'pointsTotal: ', pointsTotal, '\n result: ', result)
 
   if (isQuizFinished) {
-    const result = useSelector(getResult(pointsTotal)).payload
-
       return (
-        <div className="result-container" ref="results">
+        <div className="result-container">
           <div className="result-container-item">
             <button
-              onClick={useDispatch(resetQuiz)}
+              // onClick={useDispatch(resetQuiz)}
+              onClick={() => dispatch(resetQuiz())}
               type="button"
               className="close"
               aria-label="Close">
@@ -69,15 +77,5 @@ function Result (props) {
       );
   }
 }
-
-// function mapStateToProps(state) {
-//   return {
-//     chosenOptions: state.chosenOptions,
-//     rappers: state.rappers,
-//     displayModal: state.displayModal
-//    }
-// }
-
-// export default connect(mapStateToProps, actions)(Result);
 
 export default Result

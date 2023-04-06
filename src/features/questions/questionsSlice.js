@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, current } from '@reduxjs/toolkit'
 
 const initialState = {
   questions: [{
@@ -151,9 +151,61 @@ const initialState = {
       { id: 4, img: '14.4.png', points: 9 }
     ]
   }].sort((a,b) => a.id - b.id),
+  results: [
+    {
+      id: 1,
+      rapper: 'The Notorious B.I.G.',
+      image: 'rapper1.png',
+      description: 'You are a force to be reckoned with, but there is a quiet intellectual buried deep inside. Even though you are on the heavy side, people love you!',
+      lowerRange: 0,
+      upperRange: 1
+    },
+    {
+      id: 2,
+      rapper: '2Pac',
+      image: 'rapper2.png',
+      description: 'You love to party, and your smile lights up the room. You must be a regular at the gym because your ab muscles are on point!',
+      lowerRange: 10,
+      upperRange: 20,
+    },
+    {
+      id: 3,
+      rapper: 'Jay-Z',
+      image: 'rapper3.png',
+      description: 'You pull yourself up by the bootstraps and are able to create something big out of nothing. Your everyday hussle is going to pay off soon!',
+      lowerRange: 30,
+      upperRange: 80,
+    },
+    {
+      id: 4,
+      rapper: 'Andre 3000',
+      image: 'rapper4.png',
+      description: 'You are a weirdo, but totally in a good way! While everyone else is caught up in the rat race of life, you walk to the beat of your own drum.',
+      lowerRange: 80,
+      upperRange: 100,
+    },
+    {
+      id: 5,
+      rapper: 'Snoop Dogg',
+      image: 'rapper5.png',
+      description: 'You get high on life, amongst other things! Nothing can bring you down because you are the chillest person in the world.',
+      lowerRange: 101,
+      upperRange: 150
+    },
+    {
+      id: 6,
+      rapper: 'Lauryn Hill',
+      image: 'rapper6.png',
+      description: 'You are a jack of all trades, and a master of all of them! You are a beautiful person both inside and out.',
+      lowerRange: 151,
+      upperRange: 170
+    }
+  ].sort((a,b) => a.id - b.id),
+  result: {},
   selectedOptions: new Array(15).fill(-1),
+  nbrQuestionsAnswered: 0,
   pointsTotal: 0,
-  nbrQuestionsAnswered: 0
+  isQuizFinished: false
 }
 
 /*
@@ -173,57 +225,49 @@ export const questionsSlice = createSlice({
   initialState,
   reducers: {
     questionClicked: (state, action) => {
-        // const questionId = action.payload.questionId
-        // const optionId = action.payload.optionId
+        const questionId = action.payload.questionId
+        const optionId = action.payload.optionId
+        const question = state.questions[questionId-1]
+        const option = question.options[optionId-1]
 
-        const questionId = 1
-        const optionId = 1
-        const question = state.questions[questionId]
-        const option = question.options[optionId]
+        // console.log('Current state: ', current(state))
 
-        console.log('Current state: ', state)
-
-        console.log('\nquestion received in slice:\n', 'questionId: ', questionId, '\n optionId: ', optionId, '\n question: ', question, '\n option: ', option)
-
-        if (questionId == -1 || optionId == -1) {
-            console.log('initial call to select, ignoring...')
-            return;
-        }
+        // console.log('\nquestion received in slice:\n', 'questionId: ', questionId, '\n optionId: ', optionId, '\n question: ', current(question), '\n option: ', current(option))
         
-        if (state.selectedOptions[questionId] == -1) { // No option selected for this question so use the given option
-            state.selectedOptions[questionId] = option.id
+        if (state.selectedOptions[questionId-1] == -1) { // No option selected for this question so use the given option
+            state.selectedOptions[questionId-1] = option.id
             state.pointsTotal += option.points
-            state.questionsAnswered++
+            state.nbrQuestionsAnswered++
         }
-        else if (state.selectedOptions[questionId] == option.id) { // The given option was already selected and we want to deselect it
-            state.selectedOptions[questionId] = -1
+        else if (state.selectedOptions[questionId-1] == option.id) { // The given option was already selected and we want to deselect it
+            state.selectedOptions[questionId-1] = -1
             state.pointsTotal -= option.points
-            state.questionsAnswered--
+            state.nbrQuestionsAnswered--
         }
         else { // We want to select a different option for the question we already answered
-            const previousOption = state.selectedOptions[questionId]
-            state.pointsTotal -= question.options[previousOption].points
-            state.selectedOptions[questionId] = option.id
+            const previousOption = state.selectedOptions[questionId-1]
+            state.pointsTotal -= question.options[previousOption-1].points
+            state.selectedOptions[questionId-1] = option.id
+            state.pointsTotal += option.points
         }
 
-        console.log('End of questions slice. Here is the info\n', 'pointsTotal: ', state.pointsTotal, '\n nbrQuestionsAnswered:', state.nbrQuestionsAnswered)
-    },
-    isQuizFinished: (state, action) => {
+        console.log('questions length: ', state.questions.length, '\n nbrQuestionsAnswered', state.nbrQuestionsAnswered, '\nfinished state.questions.length === state.nbrQuestionsAnswered ? ', state.questions.length === state.nbrQuestionsAnswered)
         if (state.questions.length === state.nbrQuestionsAnswered) {
-            return {isQuizFinished: true, pointsTotal: state.pointsTotal}
+            state.isQuizFinished = true;
+            state.result = state.results.find(res => res.lowerRange <= state.pointsTotal && res.upperRange >= state.pointsTotal)
         }
-        else {
-            return {isQuizFinished: false, pointsTotal: state.pointsTotal}
-        }
+
+        // console.log('End of questions slice. Here is the info\n', 'pointsTotal: ', state.pointsTotal, '\n nbrQuestionsAnswered:', state.nbrQuestionsAnswered)
     },
     resetQuiz: (state, action) => {
-        state.selectedOptions = new Array(questions.length).fill(-1)
-        state.pointsTotal = 0
+        state.selectedOptions = new Array(state.questions.length).fill(-1)
         state.nbrQuestionsAnswered = 0
+        state.pointsTotal = 0
+        state.isQuizFinished = false
     }
   }
 })
 
-export const { questionClicked, isQuizFinished, resetQuiz } = questionsSlice.actions
+export const { questionClicked, resetQuiz } = questionsSlice.actions
 
 export default questionsSlice.reducer
