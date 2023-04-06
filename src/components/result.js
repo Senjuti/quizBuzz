@@ -1,86 +1,83 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import _ from 'lodash';
+import { useSelector, useDispatch } from 'react-redux';
+import { getResult } from '../features/results/resultsSlice';
+import { resetQuiz } from '../features/questions/questionsSlice';
+
 
 import * as actions from '../actions';
 
-class Result extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      rapper: '',
-      image: '',
-      description: ''
-    };
-  }
 
-  componentWillMount() {
-    const { rapper, image, description } = _.sample(this.props.rappers);
-    this.setState({ rapper, image, description });
-  }
+function Result (props) {
+  // constructor(props) {
+  //   super(props);
+  //   // this.state = {
+  //   //   email: '',
+  //   //   rapper: '',
+  //   //   image: '',
+  //   //   description: ''
+  //   // };
+  // }
 
-  hideModal() {
-    this.props.hideModal();
-  }
+  // componentWillMount() {
+  //   const { rapper, image, description } = _.sample(this.props.rappers);
+  //   this.setState({ rapper, image, description });
+  // }
 
-  handleInputChange(event) {
-    this.setState({ email: event.target.value });
-  }
+  // hideModal() {
+  //   this.props.hideModal();
+  // }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    const { email, rapper, description } = this.state;
-    this.props.sendEmail(email, rapper, description);
-  }
+  // handleInputChange(event) {
+  //   this.setState({ email: event.target.value });
+  // }
 
-  render() {
-    const { chosenOptions } = this.props;
-    const numChosen = _.size(chosenOptions);
+  // handleSubmit(event) {
+  //   event.preventDefault();
+  //   const { email, rapper, description } = this.state;
+  //   this.props.sendEmail(email, rapper, description);
+  // }
 
-    if (numChosen === 5 && this.props.displayModal) {
+  
+
+  const { isQuizFinished, pointsTotal } = useSelector(getResult).payload
+    
+  // if (isQuizFinished && this.props.displayModal) {
+
+  console.log('Is the quiz finished? ', isQuizFinished, 'pointsTotal: ', pointsTotal)
+
+  if (isQuizFinished) {
+    const result = useSelector(getResult(pointsTotal)).payload
+
       return (
         <div className="result-container" ref="results">
           <div className="result-container-item">
             <button
-              onClick={this.hideModal.bind(this)}
+              onClick={useDispatch(resetQuiz)}
               type="button"
               className="close"
               aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
             <div className="selected-rapper">
-              <h1>{`You are ${this.state.rapper}!`}</h1>
-              <p>{this.state.description}</p>
-              <img className="img-rounded" src={`/assets/images/${this.state.image}`}/>
+              <h1>{`You are ${result.rapper}! Id: ${result.id}`}</h1>
+              <p>{result.description}</p>
+              <img className="img-rounded" src={`/assets/images/${result.image}`}/>
             </div>
-            <form onSubmit={this.handleSubmit.bind(this)}>
-              <div className="form-group">
-                <label>Your email</label>
-                <input
-                  type="email"
-                  value={this.state.email}
-                  onChange={this.handleInputChange.bind(this)}
-                  className="form-control"
-                  placeholder="test@example.com"
-                  autoFocus />
-              </div>
-              <button className="btn btn-primary">Email My Results</button>
-            </form>
           </div>
         </div>
       );
-    }
-    return null;
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    chosenOptions: state.chosenOptions,
-    rappers: state.rappers,
-    displayModal: state.displayModal
-   }
-}
+// function mapStateToProps(state) {
+//   return {
+//     chosenOptions: state.chosenOptions,
+//     rappers: state.rappers,
+//     displayModal: state.displayModal
+//    }
+// }
 
-export default connect(mapStateToProps, actions)(Result);
+// export default connect(mapStateToProps, actions)(Result);
+
+export default Result
