@@ -251,7 +251,7 @@ export const questionsSlice = createSlice({
             state.pointsTotal += option.points
         }
 
-        console.log('questions length: ', state.questions.length, '\n nbrQuestionsAnswered', state.nbrQuestionsAnswered, '\nfinished state.questions.length === state.nbrQuestionsAnswered ? ', state.questions.length === state.nbrQuestionsAnswered)
+        // console.log('questions length: ', state.questions.length, '\n nbrQuestionsAnswered', state.nbrQuestionsAnswered, '\nfinished state.questions.length === state.nbrQuestionsAnswered ? ', state.questions.length === state.nbrQuestionsAnswered)
         if (state.questions.length === state.nbrQuestionsAnswered) {
             state.isQuizFinished = true;
             state.result = state.results.find(res => res.lowerRange <= state.pointsTotal && res.upperRange >= state.pointsTotal)

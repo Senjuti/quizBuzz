@@ -8,7 +8,7 @@ export default class App extends Component {
     return (
       <div className="app-container">
         <h1 className="site-title">
-          <a href="/">Trouve ta personnalité Fillactive</a>
+          <a href="/">Trouve ta personnalité Fillactive!</a>
         </h1>
         <Questions />
         <Result />

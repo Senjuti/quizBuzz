@@ -53,7 +53,9 @@ function Result (props) {
     
   // if (isQuizFinished && this.props.displayModal) {
 
-  console.log('Is the quiz finished? ', isQuizFinished, 'pointsTotal: ', pointsTotal, '\n result: ', result)
+  // console.log('Is the quiz finished? ', isQuizFinished, 'pointsTotal: ', pointsTotal, '\n result: ', result)
+
+  const root = './assets/images/';
 
   if (isQuizFinished) {
       return (
@@ -70,7 +72,7 @@ function Result (props) {
             <div className="selected-rapper">
               <h1>{`You are ${result.rapper}! Id: ${result.id}`}</h1>
               <p>{result.description}</p>
-              <img className="img-rounded" src={`/assets/images/${result.image}`}/>
+              <img className="img-rounded" src={`${root}${result.image}`}/>
             </div>
           </div>
         </div>
