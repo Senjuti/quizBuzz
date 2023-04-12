@@ -3,6 +3,13 @@ body {
   padding: 50px;
 }
 
+.app-container {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
 a:hover {
   color: #fff !important;
   text-decoration: none !important;
@@ -68,6 +75,15 @@ a:hover {
   background: #fff;
   padding: 25px;
   border-radius: 2px;
+  align-items: center;
+  justify-content: center;
+}
+
+.questions-options {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row
 }
 
 .selected-rapper img {

@@ -63,7 +63,7 @@ function renderOptions(props) {
     // console.log('optionId: ', optionId, ' img: ', img, ' points: ', points)
 
     return (
-      <div key={img} className="col-md-5">
+      <div key={img} className="col-md-3">
         <div onClick={() => {
             dispatch(questionClicked({questionId: questionId, optionId: optionId}))
         } } className={(prevSelectedOption == optionId) ? 'thumbnail chosen' : 'thumbnail'}>

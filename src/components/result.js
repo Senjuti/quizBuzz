@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import _ from 'lodash';
 import { useSelector, useDispatch } from 'react-redux';
 import { getResult } from '../features/results/resultsSlice';
@@ -9,6 +9,11 @@ import * as actions from '../actions';
 
 
 function Result (props) {
+
+  useEffect(() => {
+    window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+  }, []);
+
   // constructor(props) {
   //   super(props);
   //   // this.state = {
@@ -61,19 +66,26 @@ function Result (props) {
       return (
         <div className="result-container">
           <div className="result-container-item">
-            <button
+            {/* <button
               // onClick={useDispatch(resetQuiz)}
               onClick={() => dispatch(resetQuiz())}
               type="button"
               className="close"
               aria-label="Close">
               <span aria-hidden="true">&times;</span>
-            </button>
+            </button> */}
             <div className="selected-rapper">
               <h1>{`You are ${result.rapper}! Id: ${result.id}`}</h1>
               <p>{result.description}</p>
-              <img className="img-rounded" src={`${root}${result.image}`}/>
+              <img className="img-rounded" src={`${root}${result.image}`} style={{ width: 250, height: 300 }}/>
             </div>
+            <button
+              onClick={() => {
+                dispatch(resetQuiz())
+                window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
+              }}
+              type="button" style={{ color: 'teal' }} className="close" aria-label="Close" ><span aria-hidden="true">Restart the Quiz?</span>
+            </button>
           </div>
         </div>
       );
