@@ -10,6 +10,13 @@ body {
   text-align: center;
 }
 
+.language-options {
+  display: flex;
+  justify-content: right;
+  text-align: right;
+  align-items: right;
+}
+
 a:hover {
   color: #fff !important;
   text-decoration: none !important;
