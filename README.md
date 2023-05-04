@@ -1,16 +1,12 @@
-# quizBuzz - Buzzfeed Quiz + React + Redux
+# Fillactive quiz - Find your Fillactive personality
 
 ## Live Demo
 
-https://quizbuzzquiz.herokuapp.com/
+https://talos10.github.io/quizBuzz/
 
 ## Installation
 
-Really simple installation with Git.
-
-**Note:** I use environment variables for expressmailer authentication in `server.js`. Please replace these with your credentials. Never commit sensitive information!
-
-1. `git clone https://github.com/StephenMayeux/quizBuzz`
-2. `cd quizBuzz`
+1. `git clone https://github.com/Talos10/FillactiveQuiz.git`
+2. `cd FillactiveQuiz`
 3. `npm install` and wait a moment.
 4. `npm run start` and then go to `localhost:8080`

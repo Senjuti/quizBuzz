@@ -69,7 +69,7 @@ function renderOptions(props) {
         } } className={(prevSelectedOption == optionId) ? 'thumbnail chosen' : 'thumbnail'}>
           <img id="option-img" src={`${root}${img}`} />
           <div>Option id: {optionId}, Points value: {points}</div>
-          <i className={ prevSelectedOption == optionId ? 'fa fa-check-square-o fa-lg iconbox' : 'fa fa-square-o fa-lg iconbox'}></i>
+          {/* <i className={ prevSelectedOption == optionId ? 'fa fa-check-square-o fa-lg iconbox' : 'fa fa-square-o fa-lg iconbox'}></i> */}
         </div>
       </div>
     );
