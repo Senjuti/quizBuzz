@@ -15,9 +15,11 @@ body {
   justify-content: right;
   text-align: right;
   align-items: right;
+  margin: 24px 0;
+  padding: 2px 0;
 }
 
-a:hover {
+#quizTitle:hover {
   color: #fff !important;
   text-decoration: none !important;
 }
